@@ -6,7 +6,7 @@ mvn package
 mvn integration-test
 mvn verify
 mvn install
-mvn deploy
+mvn deploy(Deployment failed: repository element was not specified in the POM inside distributionManagement element or in -DaltDeploymentRepository=id::layout::url parameter)
 
 clean cycle:
 mvn pre-clean
