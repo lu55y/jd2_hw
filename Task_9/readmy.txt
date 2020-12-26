@@ -1,0 +1,208 @@
+Перезагрузка приложения на сервер томкат:
+d:\home-work\Task_9\testWebApp>mvn tomcat:redeploy
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] >>> tomcat-maven-plugin:1.1:redeploy (default-cli) > package @ testWebApp >>>
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ testWebApp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ testWebApp ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to d:\home-work\Task_9\testWebApp\target\classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ testWebApp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory d:\home-work\Task_9\testWebApp\src\test\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ testWebApp ---
+[INFO] Changes detected - recompiling the module!
+[INFO]
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ testWebApp ---
+[INFO]
+[INFO] --- maven-war-plugin:3.3.1:war (default-war) @ testWebApp ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [testWebApp] in [d:\home-work\Task_9\testWebApp\target\testWebApp-1.0-SNAPSHOT]
+[INFO] Processing war project
+[INFO] Building war: d:\home-work\Task_9\testWebApp\target\testWebApp-1.0-SNAPSHOT.war
+[INFO]
+[INFO] <<< tomcat-maven-plugin:1.1:redeploy (default-cli) < package @ testWebApp <<<
+[INFO]
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:redeploy (default-cli) @ testWebApp ---
+[INFO] Deploying war to http://localhost:8080/testWebApp
+[INFO] OK - Приложение успешно развёрнуто в контекстном пути [/testWebApp]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.577 s
+[INFO] Finished at: 2020-12-26T03:12:11+03:00
+[INFO] ------------------------------------------------------------------------
+
+Удаление приложения на сервер томкат:
+d:\home-work\Task_9\testWebApp>mvn tomcat:undeploy
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:undeploy (default-cli) @ testWebApp ---
+[INFO] Undeploying application at http://localhost:8080/testWebApp
+[INFO] OK - Удалено приложение по пути контекста [/testWebApp]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.485 s
+[INFO] Finished at: 2020-12-26T03:13:09+03:00
+[INFO] ------------------------------------------------------------------------
+
+Устанвока приложения на сервер томкат:
+d:\home-work\Task_9\testWebApp>mvn tomcat:deploy
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] >>> tomcat-maven-plugin:1.1:deploy (default-cli) > package @ testWebApp >>>
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ testWebApp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ testWebApp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ testWebApp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory d:\home-work\Task_9\testWebApp\src\test\resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ testWebApp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ testWebApp ---
+[INFO]
+[INFO] --- maven-war-plugin:3.3.1:war (default-war) @ testWebApp ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [testWebApp] in [d:\home-work\Task_9\testWebApp\target\testWebApp-1.0-SNAPSHOT]
+[INFO] Processing war project
+[INFO] Building war: d:\home-work\Task_9\testWebApp\target\testWebApp-1.0-SNAPSHOT.war
+[INFO]
+[INFO] <<< tomcat-maven-plugin:1.1:deploy (default-cli) < package @ testWebApp <<<
+[INFO]
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:deploy (default-cli) @ testWebApp ---
+[INFO] Deploying war to http://localhost:8080/testWebApp
+[INFO] OK - Приложение успешно развёрнуто в контекстном пути [/testWebApp]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.806 s
+[INFO] Finished at: 2020-12-26T03:14:24+03:00
+[INFO] ------------------------------------------------------------------------
+
+Запуск приложения на сервере томкат:
+d:\home-work\Task_9\testWebApp>mvn tomcat:start
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:start (default-cli) @ testWebApp ---
+[INFO] Starting application at http://localhost:8080/testWebApp
+[INFO] OK - Запущено приложение по пути контекста [/testWebApp]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.956 s
+[INFO] Finished at: 2020-12-26T03:15:02+03:00
+[INFO] ------------------------------------------------------------------------
+Остановка приложения на сервере томкат:
+d:\home-work\Task_9\testWebApp>mvn tomcat:stop
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:stop (default-cli) @ testWebApp ---
+[INFO] Stopping application at http://localhost:8080/testWebApp
+[INFO] OK - Остановлено приложение по пути контекста [/testWebApp]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.013 s
+[INFO] Finished at: 2020-12-26T03:15:24+03:00
+[INFO] ------------------------------------------------------------------------
+
+Вывод всех текущих сессий:
+d:\home-work\Task_9\testWebApp>mvn tomcat:sessions
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:sessions (default-cli) @ testWebApp ---
+[INFO] Listing session information for application at http://localhost:8080/testWebApp
+[INFO] OK - Информация о сеансах приложения по пути контекста [/testWebApp]
+[INFO] Стандартный максимальный период неактивного сеанса: [30] минут
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.975 s
+[INFO] Finished at: 2020-12-26T03:16:28+03:00
+[INFO] ------------------------------------------------------------------------
+Статистика установленных приложений:
+d:\home-work\Task_9\testWebApp>mvn tomcat:list
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:list (default-cli) @ testWebApp ---
+[INFO] Listing applications at http://localhost:8080/manager/text
+[INFO] OK - Список приложений для виртуального хоста [localhost]
+[INFO] /:running:0:ROOT
+[INFO] /examples:running:0:examples
+[INFO] /host-manager:running:0:host-manager
+[INFO] /manager:running:0:manager
+[INFO] /testWebApp:stopped:0:testWebApp
+[INFO] /docs:running:0:docs
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.026 s
+[INFO] Finished at: 2020-12-26T03:16:43+03:00
+[INFO] ------------------------------------------------------------------------
+SERVER INFO:
+d:\home-work\Task_9\testWebApp>mvn tomcat:info
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -----------------------< it.academy:testWebApp >------------------------
+[INFO] Building testWebApp 1.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO]
+[INFO] --- tomcat-maven-plugin:1.1:info (default-cli) @ testWebApp ---
+[INFO] Listing server information at http://localhost:8080/manager/text
+[INFO] OK - Server info
+[INFO] Tomcat Version: [Apache Tomcat/9.0.41]
+[INFO] OS Name: [Windows 10]
+[INFO] OS Version: [10.0]
+[INFO] OS Architecture: [amd64]
+[INFO] JVM Version: [11+28]
+[INFO] JVM Vendor: [Oracle Corporation]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.986 s
+[INFO] Finished at: 2020-12-26T03:18:45+03:00
+[INFO] ------------------------------------------------------------------------
