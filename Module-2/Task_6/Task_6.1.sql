@@ -1,0 +1,1 @@
+SELECT name,sum(value) FROM listexpenses.expenses,listexpenses.receivers where receiver=receivers.num group by name; 

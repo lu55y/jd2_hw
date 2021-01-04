@@ -1,0 +1,1 @@
+delete from listexpenses.expenses where value < 3000;
