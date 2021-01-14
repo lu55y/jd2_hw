@@ -21,8 +21,7 @@ public class UserAgentServlet extends HttpServlet {
         UserAgent userAgent = UserAgent.parseUserAgentString(req.getHeader("User-Agent"));
         final Browser browser = userAgent.getBrowser();
         out.println("<html><head><title>First Servlet</title></head>");
-        out.println("<body><h1>This is Your Browser:</h1><br>");
-        out.println("<h2>"+browser+"</h2>");
+        out.println("<body><h1>Приветствую пользователя"+browser+"</h1><br>");
         out.println("</body></html>");
     }
 
