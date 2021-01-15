@@ -2,6 +2,7 @@ package it.academy.servlet;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+
 
 public class CounterServlet extends HttpServlet {
 
@@ -19,54 +21,62 @@ public class CounterServlet extends HttpServlet {
 
         final String realPath = req.getServletContext().getRealPath("/counter.txt");
 
-        try {
-            final String string = getString(req, resp, realPath);
+        String fileCounts = reedFile(realPath);
 
-            jpegOut(resp, string);
+        boolean uniqueUser = getUniqId(req, resp);
+
+        String string = getStringCount(fileCounts, uniqueUser);
+
+        jpegOut(resp, string);
 
 //            outPage(resp, string);
-            write(string,realPath);
-        } catch (NumberFormatException e) {
+
+        writeToFile(string, realPath);
+
+    }
+
+    private String getStringCount(String fileCounts, boolean uniqueUser) {
+        int count = Integer.parseInt(fileCounts);
+        if (uniqueUser) {
+            count = count + 1;
+        }
+        return Integer.toString(count);
+    }
+
+    private String reedFile(String realPath) {
+        String line = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(realPath))) {
+            line = reader.readLine();
+            if (line==null)line="0";
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return line;
     }
 
-    private void write(String string, String realPath) throws IOException {
-        final BufferedWriter writer = new BufferedWriter(new FileWriter(realPath));
+    private void writeToFile(String string, String realPath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))){
         writer.write(string);
-        writer.flush();
-        writer.close();
-    }
-
-    private String getString(HttpServletRequest req, HttpServletResponse resp, String realPath) throws IOException {
-
-        final BufferedReader reader = new BufferedReader(new FileReader(realPath));
-        final String s = reader.readLine();
-        reader.close();
-        boolean uniqId = getUniqId(req, resp);
-
-        if (uniqId){
-            int counter = 1 + Integer.parseInt(s);
-            String string = Integer.toString(counter);
-            return string;
         }
-        return s;
     }
 
     private boolean getUniqId(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("Cookie".equals(cookie.getName())) {
+                if ("NewUser".equals(cookie.getName())) {
                     return false;
                 }
             }
-        }else {
-            Cookie newCookieUser = new Cookie("Cookie", "this is unique user");
-            newCookieUser.setMaxAge(60*60*24);
-            resp.addCookie(newCookieUser);
         }
+        addCookieUser(resp);
         return true;
+    }
+
+    private void addCookieUser(HttpServletResponse resp) {
+        Cookie newCookieUser = new Cookie("NewUser", "1");
+        newCookieUser.setMaxAge(60 * 60 * 24);
+        resp.addCookie(newCookieUser);
     }
 
     private void outPage(HttpServletResponse resp, String counter) throws IOException {
