@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="yatsevich">
+        <sql>
+            create database if not exists ListExpenses;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="yatsevich">
+        <sql>
+            use ListExpenses;
+            create table if not exists expenses(
+            num int not null primary key,
+            paydate date not null,
+            receiver int not null,
+            value dec not null);
+
+            create table if not exists receivers (
+            num int not null primary key,
+            name varchar (255) not null);
+            ALTER TABLE receivers modify name varchar(255) CHARACTER SET utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="yatsevich">
+        <sql>
+            use ListExpenses;
+            insert into expenses (num,paydate,value,receiver) value(1,'2011-5-10',20000.0,1);
+            insert into expenses (num,paydate,value,receiver) value(2,'2011-5-10',94200.0,2);
+            insert into expenses (num,paydate,value,receiver) value(3,'2011-5-11',10000.0,3);
+            insert into expenses (num,paydate,value,receiver) value(4,'2011-5-11',12950.0,2);
+<!--            ALTER TABLE receivers modify name varchar(255) CHARACTER SET utf8;-->
+            insert into receivers values (1, 'Интернет-провайдер "Соло"');
+            insert into receivers values (2, 'Гимермаркет "Корона"');
+            insert into receivers values (3, 'МТС');
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
