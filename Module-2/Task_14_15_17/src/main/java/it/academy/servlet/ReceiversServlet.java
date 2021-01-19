@@ -33,30 +33,45 @@ public class ReceiversServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String num = req.getParameter("num");
-            List<Receiver>receivers;
             Dao receiverDao=myDaoFactory.getDaoImpl(getServletConfig());
-            if (num==null){
-                receivers=receiverDao.getReceivers();
-            }else {
-                Receiver receiver=null;
-                try {
-                    receiver= receiverDao.getReceiver(Integer.parseInt(num));
-                }catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
-                receivers = receiver !=null ? List.of(receiver) : Collections.emptyList();
-
-            }
-            resp.setContentType("text/html");
-            resp.setCharacterEncoding("UTF-8");
-            PrintWriter writer = resp.getWriter();
-            for (Receiver receiver : receivers) {
-                writer.println("num= "+receiver.getNum()+
-                        "   name= "+receiver.getName());
-            }
+            List<Receiver> receivers = getReceivers(req, receiverDao);
+            pageOut(resp, receivers);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void pageOut(HttpServletResponse resp, List<Receiver> receivers) throws IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter writer = resp.getWriter();
+        writer.println("<html><head><title>Task 14</title></head>");
+        writer.println("<body><h2>Receivers</h2>");
+        for (Receiver receiver : receivers) {
+            writer.println("<p>num= "+receiver.getNum()+
+                    "   name= "+receiver.getName()+"</p>");
+        }
+        writer.println("<form action=\"/ListExpenses_14_15_17/Task14\" target=\"_self\">\n" +
+                "   <button>Task 14</button>\n" +
+                "</form></br>");
+        writer.println("</body></html>");
+    }
+
+    private List<Receiver> getReceivers(HttpServletRequest req, Dao receiverDao) {
+        String num = req.getParameter("num");
+        List<Receiver>receivers;
+        if (num==null){
+            receivers= receiverDao.getReceivers();
+        }else {
+            Receiver receiver=null;
+            try {
+                receiver= receiverDao.getReceiver(Integer.parseInt(num));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+            receivers = receiver !=null ? List.of(receiver) : Collections.emptyList();
+
+        }
+        return receivers;
     }
 }

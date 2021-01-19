@@ -33,40 +33,59 @@ public class Task_14_outServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String num = req.getParameter("num");
-            List<ListExpenses> expenses;
             Dao expenseDao=myDaoFactory.getDaoImpl(getServletConfig());
-            if (num==null){
-                expenses=expenseDao.getListExpenses();
-            }else {
-                ListExpenses expenseList=null;
-                try {
-                    expenseList= expenseDao.getListExpense(Integer.parseInt(num));
-                }catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
-                expenses = expenseList !=null ? List.of(expenseList) : Collections.emptyList();
-
-            }
-            resp.setContentType("text/html");
-            resp.setCharacterEncoding("UTF-8");
-            PrintWriter writer = resp.getWriter();
-
-            writer.println("<html><head><title>Task 14</title></head>");
-            writer.println("<body><h2>List Expenses</h2>");
-            for (ListExpenses expenseList : expenses) {
-                writer.println("<p>num= "+expenseList.getNum()+
-                        "   paydate= "+expenseList.getPaydate()+
-                        "   receiver= "+expenseList.getReceiver()+
-                        "   value= "+expenseList.getValue()+"</p>");
-            }
-            writer.println("<form action=\"/ListExpenses_14_15_17\" target=\"_self\">\n" +
-                    "   <button>Start Page</button>\n" +
-                    "</form></br>");
-            writer.println("</body></html>");
+            List<ListExpenses> expenses = getListExpenses(req, expenseDao);
+            pageOut(resp, expenses);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void pageOut(HttpServletResponse resp, List<ListExpenses> expenses) throws IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter writer = resp.getWriter();
+
+        writer.println("<html><head><title>Task 14</title></head>");
+        writer.println("<body><h2>List Expenses</h2>");
+        for (ListExpenses expenseList : expenses) {
+            writer.println("<p>num= "+expenseList.getNum()+
+                    "   paydate= "+expenseList.getPaydate()+
+                    "   receiver= "+expenseList.getReceiver()+
+                    "   value= "+expenseList.getValue()+"</p>");
+        }
+        bottoms(writer);
+        writer.println("</body></html>");
+    }
+
+    private void bottoms(PrintWriter writer) {
+        writer.println("<form action=\"/ListExpenses_14_15_17/expenses\" target=\"_self\">\n" +
+                "   <button>Expenses Table</button>\n" +
+                "</form></br>");
+        writer.println("<form action=\"/ListExpenses_14_15_17/receivers\" target=\"_self\">\n" +
+                "   <button>Receivers Table</button>\n" +
+                "</form></br>");
+        writer.println("<form action=\"/ListExpenses_14_15_17\" target=\"_self\">\n" +
+                "   <button>Start Page</button>\n" +
+                "</form></br>");
+    }
+
+    private List<ListExpenses> getListExpenses(HttpServletRequest req, Dao expenseDao) {
+        String num = req.getParameter("num");
+        List<ListExpenses> expenses;
+        if (num==null){
+            expenses= expenseDao.getListExpenses();
+        }else {
+            ListExpenses expenseList=null;
+            try {
+                expenseList= expenseDao.getListExpense(Integer.parseInt(num));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+            expenses = expenseList !=null ? List.of(expenseList) : Collections.emptyList();
+
+        }
+        return expenses;
     }
 
 
