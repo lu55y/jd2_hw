@@ -14,7 +14,7 @@ public class MyDaoFactory {
 
     public Dao getDaoImpl() throws SQLException{
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/listexpenses?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8</url>",
+                "jdbc:mysql://localhost:3306/listexpenses?serverTimezone=UTC&createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8",
                 "root",
                 "root"
         );
