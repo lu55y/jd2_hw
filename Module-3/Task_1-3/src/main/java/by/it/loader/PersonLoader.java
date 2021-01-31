@@ -2,23 +2,27 @@ package by.it.loader;
 
 import by.it.pojos.Person;
 import by.it.util.HibernateUtil;
+import by.it.util.SFactory;
+import org.hibernate.Session;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class PersonLoader {
 
-    private static final HibernateUtil hibernateUtil = new HibernateUtil();
+
     private static final Scanner scan = new Scanner(System.in);
+    private static final HibernateUtil hibernateUtil = new HibernateUtil();
 
     public static void main(String[] args) throws Exception {
-
-/*        final EntityManager em = HibernateUtil.getEntityManager();
-        Person person=new Person(null,35,"Yuli","Slabko");
-        em.getTransaction().begin();
-        em.persist(person);
-        em.getTransaction().commit();
-        HibernateUtil.close();
+/*
+      final EntityManager em = HibernateUtil.getEntityManager();
+ Person person=new Person(null,35,"Yuli","Slabko");
+ em.getTransaction().begin();
+ em.persist(person);
+ em.getTransaction().commit();
+ HibernateUtil.close();
 */
 
         getGreeting();
@@ -51,21 +55,23 @@ public class PersonLoader {
 
     private static void getUpdatePerson() throws SQLException {
         System.out.println("Enter ID:");
-        Integer id=getId();
-        final Person read = hibernateUtil.read(id);
+        Integer id = getId();
+        Session session = SFactory.getOpenSession();
+        final Person read = hibernateUtil.read(id, session);
         if (read != null) {
-            final Person updatePerson = getUpdate(read,id);
+            final Person updatePerson = getUpdate(read, id);
             if (updatePerson != null) {
                 System.out.println(updatePerson);
             }
         }
-        if (read==null){
-            System.out.println("You wont add new Person for ID="+id+"? \nEnter 'yes' if true");
-            String s=scan.nextLine();
-            if (s.equals("yes")){
+        if (read == null) {
+            System.out.println("You wont add new Person for ID=" + id + "? \nEnter 'yes' if true");
+            String s = scan.nextLine();
+            if (s.equals("yes")) {
                 getNewPersonWithIdInput(id);
-            }else System.out.println("Without update ID="+id);
+            } else System.out.println("Without update ID=" + id);
         }
+        session.close();
     }
 
     private static void getNewPersonWithIdInput(Integer id) throws SQLException {
@@ -75,20 +81,22 @@ public class PersonLoader {
         String name = scan.next();
         System.out.println("Enter surname:");
         String surname = scan.next();
-        hibernateUtil.createWithId(id, intAge, name, surname);
-        System.out.println("You add new Person for ID="+id);
+        PreparedStatement preparedStatement = SFactory.getOpenConnection();
+        hibernateUtil.createWithId(id, intAge, name, surname, preparedStatement);
+        System.out.println("You add new Person for ID=" + id);
+        SFactory.getOpenConnection().close();
     }
 
     private static void getDeletePerson() {
         System.out.println("Enter ID:");
-        Integer id=getId();
-        final boolean delete = hibernateUtil.delete(id);
-        if (delete) {
-            System.out.println("Person with ID= " + id + "  -- deleted!");
-        } else System.out.println("some wrong!&ERROR&!");
+        Integer id = getId();
+        Session session = SFactory.getOpenSession();
+        hibernateUtil.delete(id, session);
+        System.out.println("Person with ID= " + id + "  -- deleted!");
+        session.close();
     }
 
-    private static Person getUpdate(Person read,Integer id) {
+    private static Person getUpdate(Person read, Integer id) {
         Integer ageP = read.getAge();
         System.out.println("Age of this Person: " + ageP +
                 "\nEnter new Age:");
@@ -107,13 +115,19 @@ public class PersonLoader {
         System.out.println("Surname of this Person: " + surnameP +
                 "\nEnter new Surname:");
         String surname = scan.next();
-        return hibernateUtil.update(id, intAge, name, surname);
+        Session session = SFactory.getOpenSession();
+        Person update = hibernateUtil.update(id, intAge, name, surname, session);
+        session.close();
+        return update;
     }
 
     private static Person getReadPerson() {
         System.out.println("Enter ID:");
-        Integer id=getId();
-        return hibernateUtil.read(id);
+        Integer id = getId();
+        Session session = SFactory.getOpenSession();
+        Person read = hibernateUtil.read(id, session);
+        session.close();
+        return read;
     }
 
     private static Integer getId() {
@@ -142,10 +156,11 @@ public class PersonLoader {
         String name = scan.next();
         System.out.println("Enter surname:");
         String surname = scan.next();
-        return hibernateUtil.create(
-                intAge,
-                name,
-                surname);
+        Session session = SFactory.getOpenSession();
+        Person person = new Person(null,intAge,name,surname);
+        Integer integer = hibernateUtil.create(person, session);
+        session.close();
+        return integer;
     }
 
     private static void getGreeting() {
