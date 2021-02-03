@@ -11,10 +11,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "T_PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     @Column(name = "P_ID")
     private Integer id;
     @Column(name = "P_AGE")
@@ -23,4 +22,12 @@ public class Person {
     private String name;
     @Column(name = "P_SURNAME")
     private String surname;
+    @Column(name = "PONENUMBER")
+
+    @OneToOne
+    @JoinColumn(name = "PERSON_PHONE_NUMBER_ID")
+    private PoneNumber poneNumber;
+
+    @Embedded
+    private Address address;
 }
