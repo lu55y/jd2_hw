@@ -13,5 +13,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="by.it.pojos.Person"/>
+        <mapping class="by.it.pojos.Address"/>
+        <mapping class="by.it.pojos.PoneNumber"/>
     </session-factory>
 </hibernate-configuration>

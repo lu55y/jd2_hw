@@ -21,7 +21,6 @@ public class PoneNumber {
     private String id;
 
     @Column(name = "PHONENUMBER")
-    @Transient
     private Integer phoneNumber;
 
     @Access(AccessType.PROPERTY)
@@ -33,6 +32,12 @@ public class PoneNumber {
         this.phoneNumber = phoneNumber;
     }
 
-
+    @Override
+    public String toString() {
+        return "PoneNumber{" +
+                "id='" + id + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                '}';
+    }
 
 }

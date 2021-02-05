@@ -4,6 +4,7 @@ package by.it.pojos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Entity
 public class Person {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "P_ID")
     private Integer id;
     @Column(name = "P_AGE")
@@ -22,7 +23,7 @@ public class Person {
     private String name;
     @Column(name = "P_SURNAME")
     private String surname;
-    @Column(name = "PONENUMBER")
+
 
     @OneToOne
     @JoinColumn(name = "PERSON_PHONE_NUMBER_ID")

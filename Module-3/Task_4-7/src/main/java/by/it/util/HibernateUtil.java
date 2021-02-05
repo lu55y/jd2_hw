@@ -1,6 +1,8 @@
 package by.it.util;
 
+import by.it.pojos.Address;
 import by.it.pojos.Person;
+import by.it.pojos.PoneNumber;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -26,13 +28,13 @@ public class HibernateUtil {
         return (Integer) id;
     }
 
-    public void createWithId(Integer id, Integer age, String name, String surname, PreparedStatement preparedStatement) throws SQLException {
-            preparedStatement.setInt(1, id);
-            preparedStatement.setInt(2, age);
-            preparedStatement.setString(3, name);
-            preparedStatement.setString(4, surname);
-            preparedStatement.executeUpdate();
-    }
+//    public void createWithId(Integer id, Integer age, String name, String surname,  PreparedStatement preparedStatement) throws SQLException {
+//            preparedStatement.setInt(1, id);
+//            preparedStatement.setInt(2, age);
+//            preparedStatement.setString(3, name);
+//            preparedStatement.setString(4, surname);
+//            preparedStatement.executeUpdate();
+//    }
 
 
 
@@ -46,16 +48,21 @@ public class HibernateUtil {
         return null;
     }
 
-    public Person update(Integer id, Integer age, String name, String surname,Session session){
+    public Person update(Integer id, Integer age, String name, String surname,
+                         Integer pNumber, Address address, Session session){
         Person loadedPerson=read(id,session);
+        final PoneNumber poneNumber = loadedPerson.getPoneNumber();
+        poneNumber.setPhoneNumber(pNumber);
         if (loadedPerson!=null) {
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
+                session.update(poneNumber);
                 loadedPerson.setId(id);
                 loadedPerson.setAge(age);
                 loadedPerson.setName(name);
                 loadedPerson.setSurname(surname);
+                loadedPerson.setAddress(address);
                 session.flush();
                 tx.commit();
             } catch (Exception e) {

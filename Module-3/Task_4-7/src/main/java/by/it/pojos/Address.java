@@ -11,6 +11,6 @@ public class Address {
 
     private String street;
     private String city;
-    private String postalCode;
+    private Integer postalCode;
 
 }
