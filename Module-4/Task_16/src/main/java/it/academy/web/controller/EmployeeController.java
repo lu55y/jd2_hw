@@ -20,9 +20,7 @@ public class EmployeeController {
         return "page_1";
     }
 
-    @RequestMapping(
-            value = {"/page_2"},
-            method = RequestMethod.GET)
+    @GetMapping("/page_2")
     public String pageTwo(ModelMap model) {
         return "page_2";
     }
